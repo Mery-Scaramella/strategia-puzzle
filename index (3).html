@@ -1,0 +1,787 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Strategia Puzzle</title>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@700;800;900&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Outfit', sans-serif;
+            background: #f5f5f5;
+            overflow-x: hidden;
+        }
+
+        .section {
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 60px 20px;
+            position: relative;
+        }
+
+        /* HERO */
+        .hero {
+            background: linear-gradient(135deg, #fff9e6 0%, #ffe6f0 50%, #e6f7ff 100%);
+        }
+
+        .logo {
+            position: absolute;
+            top: 40px;
+            width: 120px;
+        }
+
+        .circle {
+            position: absolute;
+            border-radius: 50%;
+        }
+
+        .hero .circle-1 {
+            width: 150px;
+            height: 150px;
+            background: #FFE66D;
+            top: 50px;
+            left: 50px;
+        }
+
+        .hero .circle-2 {
+            width: 200px;
+            height: 200px;
+            background: #FFB3D9;
+            top: 200px;
+            right: 100px;
+        }
+
+        .hero .circle-3 {
+            width: 120px;
+            height: 120px;
+            background: #6DD5ED;
+            bottom: 150px;
+            right: 50px;
+        }
+
+        .hero .circle-4 {
+            width: 100px;
+            height: 100px;
+            background: #B8E6D5;
+            bottom: 100px;
+            left: 150px;
+        }
+
+        .hero-content {
+            position: relative;
+            z-index: 10;
+            text-align: center;
+            max-width: 900px;
+        }
+
+        .plot-twist {
+            font-size: 72px;
+            font-weight: 900;
+            margin-bottom: 20px;
+        }
+
+        .yellow-highlight {
+            background: #FFE66D;
+            padding: 5px 20px;
+            display: inline-block;
+        }
+
+        .hero-text {
+            font-size: 28px;
+            margin: 30px 0;
+            font-weight: 700;
+        }
+
+        .pink-highlight {
+            background: #FFB3D9;
+            padding: 5px 15px;
+            display: inline-block;
+        }
+
+        .gradient-box {
+            background: linear-gradient(135deg, #FFB3D9 0%, #fff9e6 25%, #FFE66D 50%, #B8E6D5 75%, #6DD5ED 100%);
+            border-radius: 30px;
+            padding: 50px;
+            margin: 40px 0;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.1);
+        }
+
+        .gradient-box p {
+            font-size: 24px;
+            font-weight: 700;
+            margin: 10px 0;
+        }
+
+        .black-box {
+            background: #000;
+            color: #fff;
+            padding: 20px 40px;
+            display: inline-block;
+            border-radius: 10px;
+            font-size: 26px;
+            font-weight: 800;
+            margin: 20px 0;
+        }
+
+        .hero-bottom {
+            font-size: 20px;
+            margin: 30px 0;
+        }
+
+        .yellow-box {
+            background: #FFE66D;
+            padding: 30px 50px;
+            border-radius: 20px;
+            display: inline-block;
+            margin: 30px 0;
+        }
+
+        .yellow-box p {
+            font-size: 26px;
+            font-weight: 800;
+        }
+
+        .pink-badge {
+            background: #FFB3D9;
+            padding: 15px 30px;
+            border-radius: 50px;
+            display: inline-block;
+            font-size: 18px;
+            font-weight: 800;
+            margin: 20px 0;
+        }
+
+        .cta-button {
+            background: #5C5C5C;
+            color: #fff;
+            padding: 20px 50px;
+            border-radius: 50px;
+            font-size: 24px;
+            font-weight: 800;
+            display: inline-block;
+            text-decoration: none;
+            margin: 20px 0;
+        }
+
+        /* TI RICONOSCI */
+        .ti-riconosci {
+            background: linear-gradient(135deg, #fff 0%, #f5f5f5 100%);
+        }
+
+        .section-title {
+            font-size: 64px;
+            font-weight: 900;
+            margin-bottom: 20px;
+        }
+
+        .yellow-underline {
+            width: 200px;
+            height: 8px;
+            background: #FFE66D;
+            margin: 0 auto 40px;
+        }
+
+        .subtitle {
+            font-size: 22px;
+            margin-bottom: 60px;
+        }
+
+        .cards-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 30px;
+            max-width: 1000px;
+            margin-bottom: 60px;
+        }
+
+        .card {
+            background: #fff;
+            border-radius: 30px;
+            padding: 40px;
+            border: 4px solid;
+        }
+
+        .card-pink {
+            border-color: #FFB3D9;
+        }
+
+        .card-yellow {
+            border-color: #FFE66D;
+        }
+
+        .card-cyan {
+            border-color: #6DD5ED;
+        }
+
+        .card-green {
+            border-color: #B8E6D5;
+        }
+
+        .card-emoji {
+            font-size: 60px;
+            margin-bottom: 20px;
+        }
+
+        .card-text {
+            font-size: 20px;
+            font-weight: 700;
+            line-height: 1.6;
+        }
+
+        .card-highlight {
+            padding: 3px 10px;
+            border-radius: 5px;
+        }
+
+        .conclusion-box {
+            background: #fff;
+            border-radius: 30px;
+            padding: 50px;
+            max-width: 900px;
+            font-size: 22px;
+            font-weight: 700;
+            line-height: 1.8;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.05);
+        }
+
+        .black-banner {
+            background: #000;
+            color: #fff;
+            padding: 30px;
+            border-radius: 20px;
+            font-size: 36px;
+            font-weight: 900;
+            margin-top: 40px;
+            display: inline-block;
+        }
+
+        /* ATTENZIONE */
+        .attenzione {
+            background: linear-gradient(135deg, #fff9e6 0%, #ffe6f0 100%);
+        }
+
+        .compare-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 40px;
+            max-width: 1100px;
+            margin: 60px 0;
+        }
+
+        .compare-box {
+            border-radius: 30px;
+            padding: 50px;
+            border: 4px solid;
+        }
+
+        .compare-red {
+            background: #ffe6e6;
+            border-color: #ff6b6b;
+        }
+
+        .compare-green {
+            background: #e6ffe6;
+            border-color: #51cf66;
+        }
+
+        .compare-icon {
+            font-size: 80px;
+            margin-bottom: 20px;
+        }
+
+        .compare-title {
+            font-size: 28px;
+            font-weight: 900;
+            margin-bottom: 30px;
+        }
+
+        .compare-list {
+            list-style: none;
+            font-size: 20px;
+            line-height: 2;
+        }
+
+        .compare-list li {
+            margin: 15px 0;
+        }
+
+        .bottom-text {
+            background: #fff;
+            padding: 20px 40px;
+            border-radius: 50px;
+            display: inline-block;
+            margin-top: 30px;
+            font-size: 22px;
+            font-weight: 800;
+        }
+
+        .big-pink-box {
+            background: #FFB3D9;
+            padding: 50px;
+            border-radius: 30px;
+            max-width: 800px;
+            margin-top: 60px;
+        }
+
+        .big-pink-box p {
+            font-size: 36px;
+            font-weight: 900;
+            line-height: 1.4;
+        }
+
+        /* COS'È */
+        .cose {
+            background: linear-gradient(135deg, #e6f0ff 0%, #f0f0f0 100%);
+        }
+
+        .pillars-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 30px;
+            max-width: 1100px;
+            margin: 60px 0;
+        }
+
+        .pillar {
+            background: #fff;
+            border-radius: 30px;
+            padding: 40px;
+            border: 4px solid;
+        }
+
+        .pillar-number {
+            font-size: 60px;
+            margin-bottom: 20px;
+        }
+
+        .pillar-title {
+            font-size: 32px;
+            font-weight: 900;
+            padding: 10px 20px;
+            display: inline-block;
+            margin-bottom: 20px;
+        }
+
+        .pillar-text {
+            font-size: 18px;
+            font-weight: 700;
+            line-height: 1.6;
+        }
+
+        .pillar-note {
+            font-size: 16px;
+            margin-top: 10px;
+        }
+
+        /* Continue with remaining sections... */
+        
+        @media (max-width: 768px) {
+            .cards-grid,
+            .compare-grid,
+            .pillars-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .section-title {
+                font-size: 42px;
+            }
+            
+            .plot-twist {
+                font-size: 48px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- HERO -->
+    <div class="section hero">
+        <img src="data:image/svg+xml,%3Csvg width='120' height='50' xmlns='http://www.w3.org/2000/svg'%3E%3Ctext x='10' y='35' font-family='Brush Script MT, cursive' font-size='24' fill='%23666'%3EMy Creative Planet%3C/text%3E%3C/svg%3E" alt="Logo" class="logo">
+        
+        <div class="circle circle-1"></div>
+        <div class="circle circle-2"></div>
+        <div class="circle circle-3"></div>
+        <div class="circle circle-4"></div>
+        
+        <div class="hero-content">
+            <h1 class="plot-twist">PLOT TWIST</h1>
+            <p class="hero-text"><span class="yellow-highlight">Non ti servono più contenuti.</span></p>
+            <p class="hero-text">Ti serve qualcuno che ti dica<br><span class="pink-highlight">cosa NON fare.</span></p>
+            
+            <div class="gradient-box">
+                <p>Io non vendo social.</p>
+                <p>Non vendo post.</p>
+                <p>Non vendo "presenza online".</p>
+                <div class="black-box">👉 Offro CHIAREZZA</div>
+            </div>
+            
+            <p class="hero-bottom">Se pubblichi da mesi<br>ma le richieste sono sbagliate o zero,</p>
+            <div class="yellow-box">
+                <p>Non è l'algoritmo.<br>È che i pezzi non stanno insieme.</p>
+            </div>
+            
+            <div class="pink-badge">Strategia Puzzle</div>
+            <p style="font-size: 20px; font-weight: 700; margin: 20px 0;">è il metodo che uso per rimetterli al loro posto.</p>
+            
+            <a href="mailto:maria_antonietta@mycreativeplanet.it?subject=PUZZLE" class="cta-button">👉 SCRIVIMI "PUZZLE"</a>
+        </div>
+    </div>
+
+    <!-- TI RICONOSCI -->
+    <div class="section ti-riconosci">
+        <h2 class="section-title">Ti riconosci?</h2>
+        <div class="yellow-underline"></div>
+        <p class="subtitle">Se anche solo UNO di questi è vero,<br><span class="yellow-highlight">continua a leggere</span></p>
+        
+        <div class="cards-grid">
+            <div class="card card-pink">
+                <div class="card-emoji">😵</div>
+                <p class="card-text">Pubblichi con costanza,<br>ma le richieste sono<br><span class="pink-highlight">poche o sbagliate</span></p>
+            </div>
+            
+            <div class="card card-yellow">
+                <div class="card-emoji">🧩</div>
+                <p class="card-text">Hai contenuti,<br>ma sembrano<br><span class="yellow-highlight">sparsi a caso</span></p>
+            </div>
+            
+            <div class="card card-cyan">
+                <div class="card-emoji">💸</div>
+                <p class="card-text">Hai provato ads, boost,<br>SMM, agenzie...<br><span style="background: #6DD5ED; padding: 3px 10px;">e sei ancora confuso</span></p>
+            </div>
+            
+            <div class="card card-green">
+                <div class="card-emoji">🤔</div>
+                <p class="card-text">Ogni mese la stessa domanda:<br><span style="background: #B8E6D5; padding: 3px 10px; font-style: italic;">"Ok... ma cosa postiamo?"</span></p>
+            </div>
+        </div>
+        
+        <div class="conclusion-box">
+            <p>Non è un problema di creatività.<br>Non è un problema di visibilità.</p>
+        </div>
+        
+        <div class="black-banner">Il problema è che<br>MANCA UNA DIREZIONE</div>
+    </div>
+
+    <!-- ATTENZIONE -->
+    <div class="section attenzione">
+        <div class="circle" style="width: 120px; height: 120px; background: #FFB3D9; top: 100px; left: 80px;"></div>
+        
+        <div class="yellow-box" style="margin-bottom: 40px;">
+            <p style="font-size: 32px;">ATTENZIONE</p>
+        </div>
+        
+        <p style="font-size: 28px; font-weight: 800; margin-bottom: 60px;">Qui una cosa va detta <span class="pink-highlight">SUBITO</span></p>
+        
+        <div class="compare-grid">
+            <div class="compare-box compare-red">
+                <div class="compare-icon">✕</div>
+                <h3 class="compare-title">Se cerchi:</h3>
+                <ul class="compare-list">
+                    <li>qualcuno che ti <span style="background: #ffcccc; padding: 3px 8px;">"gestisca i social"</span></li>
+                    <li>un calendario editoriale <span style="background: #ffcccc; padding: 3px 8px;">pieno</span></li>
+                    <li><span style="background: #ffcccc; padding: 3px 8px;">più follower</span></li>
+                    <li><span style="background: #ffcccc; padding: 3px 8px;">soluzioni rapide</span></li>
+                </ul>
+                <div class="bottom-text">Non sono per te.</div>
+            </div>
+            
+            <div class="compare-box compare-green">
+                <div class="compare-icon">✓</div>
+                <h3 class="compare-title">Se invece:</h3>
+                <ul class="compare-list">
+                    <li>sei <span style="background: #ccffcc; padding: 3px 8px;">già online</span></li>
+                    <li>stai investendo <span style="background: #ccffcc; padding: 3px 8px;">tempo o soldi</span></li>
+                    <li>senti che la comunicazione <span style="background: #ccffcc; padding: 3px 8px;">"non torna"</span></li>
+                    <li>vuoi capire <span style="background: #ccffcc; padding: 3px 8px;">cosa tagliare</span></li>
+                </ul>
+                <div class="bottom-text">Possiamo lavorare bene.</div>
+            </div>
+        </div>
+        
+        <div class="big-pink-box">
+            <p>Il problema è che<br>MANCA UNA DIREZIONE</p>
+        </div>
+    </div>
+
+    <!-- COS'È STRATEGIA PUZZLE -->
+    <div class="section cose">
+        <h2 class="section-title">COS'È<br><span class="yellow-highlight" style="font-size: 64px; padding: 10px 30px;">STRATEGIA PUZZLE</span></h2>
+        
+        <p style="font-size: 24px; font-weight: 800; margin: 40px 0;">Non è un pacchetto.<br><span class="pink-highlight" style="font-size: 24px; padding: 8px 20px;">È un modo di ragionare.</span></p>
+        
+        <div style="background: #000; color: #fff; padding: 40px; border-radius: 20px; display: inline-block; margin: 30px 0;">
+            <p style="font-size: 22px; font-weight: 800;">Un sistema che mette ORDINE<br>prima di produrre.</p>
+        </div>
+        
+        <p style="font-size: 26px; font-weight: 800; margin: 40px 0;">Si basa su <span class="yellow-highlight" style="padding: 8px 20px;">4 PILASTRI</span> :</p>
+        
+        <div class="pillars-grid">
+            <div class="pillar" style="border-color: #FFB3D9;">
+                <div class="pillar-number">1️⃣</div>
+                <div class="pillar-title" style="background: #FFB3D9;">DIREZIONE</div>
+                <p class="pillar-text">Decidiamo dove stai andando<br>(e soprattutto <span style="background: #FFB3D9; padding: 3px 8px;">cosa NON devi fare</span> )</p>
+            </div>
+            
+            <div class="pillar" style="border-color: #FFE66D;">
+                <div class="pillar-number">2️⃣</div>
+                <div class="pillar-title" style="background: #FFE66D;">SENSO</div>
+                <p class="pillar-text">Costruiamo messaggi che attivano<br><span style="background: #FFE66D; padding: 3px 8px;">fiducia, rilevanza e desiderio</span><br><span class="pillar-note">(non contenuti "carini")</span></p>
+            </div>
+            
+            <div class="pillar" style="border-color: #6DD5ED;">
+                <div class="pillar-number">3️⃣</div>
+                <div class="pillar-title" style="background: #6DD5ED;">STRUTTURA</div>
+                <p class="pillar-text">I contenuti diventano un sistema<br>che si incastra<br><span class="pillar-note">(non una lista di post)</span></p>
+            </div>
+            
+            <div class="pillar" style="border-color: #B8E6D5;">
+                <div class="pillar-number">4️⃣</div>
+                <div class="pillar-title" style="background: #B8E6D5;">REALTÀ</div>
+                <p class="pillar-text">Guardiamo i numeri che contano davvero :<br>DM, richieste, qualità dei contatti<br><span class="pillar-note">(non vanity metric)</span></p>
+            </div>
+        </div>
+    </div>
+
+    <!-- OGNI POST È UN PEZZO DEL PUZZLE -->
+    <div class="section" style="background: #fff;">
+        <h2 class="section-title">OGNI POST È UN<br><span class="yellow-highlight" style="font-size: 64px; padding: 10px 30px;">PEZZO DEL PUZZLE</span></h2>
+        
+        <p style="font-size: 22px; margin: 40px 0; max-width: 900px;">Non pubblichi "a caso". Ogni contenuto prepara il terreno per quello dopo.<br><span class="pink-highlight" style="padding: 5px 15px;">Quando arriva l'offerta, il cliente è già pronto.</span></p>
+        
+        <div style="background: #000; color: #fff; padding: 20px 40px; border-radius: 50px; display: inline-block; margin: 30px 0;">
+            <p style="font-size: 20px; font-weight: 800;">💇‍♀️ ESEMPIO: Parrucchiere e stagione cerimonie</p>
+        </div>
+        
+        <!-- TIMELINE CARDS -->
+        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 30px; max-width: 1200px; margin: 60px auto;">
+            <!-- APRILE Settimana 1 -->
+            <div style="background: #fff; padding: 35px; border-radius: 30px; border: 4px solid #FFB3D9;">
+                <div style="background: #FFB3D9; padding: 10px 20px; border-radius: 50px; display: inline-block; margin-bottom: 20px;">
+                    <p style="font-size: 14px; font-weight: 800;">APRILE - Settimana 1</p>
+                </div>
+                <div style="font-size: 48px; margin: 20px 0;">🌸</div>
+                <h3 style="font-size: 24px; font-weight: 800; margin-bottom: 15px;">Semina l'idea</h3>
+                <p style="font-size: 16px; font-style: italic; margin-bottom: 20px; line-height: 1.6;">
+                    "Oggi ho selezionato dai fornitori i nuovi accessori floreali per le acconciature da cerimonia..."
+                </p>
+                <div style="background: rgba(255,179,217,0.2); padding: 15px; border-radius: 10px;">
+                    <p style="font-size: 14px; font-weight: 700;">💗 Obiettivo: Far sapere che ti stai preparando</p>
+                </div>
+            </div>
+            
+            <!-- APRILE Settimana 2-3 -->
+            <div style="background: #fff; padding: 35px; border-radius: 30px; border: 4px solid #FFE66D;">
+                <div style="background: #FFE66D; padding: 10px 20px; border-radius: 50px; display: inline-block; margin-bottom: 20px;">
+                    <p style="font-size: 14px; font-weight: 800;">APRILE - Settimana 2-3</p>
+                </div>
+                <div style="font-size: 48px; margin: 20px 0;">✨</div>
+                <h3 style="font-size: 24px; font-weight: 800; margin-bottom: 15px;">Mostra competenza</h3>
+                <p style="font-size: 16px; font-style: italic; margin-bottom: 20px; line-height: 1.6;">
+                    "Accessorio oro o argento? Dipende dal sottotono della pelle. Ecco come scegliere..."
+                </p>
+                <div style="background: rgba(255,230,109,0.3); padding: 15px; border-radius: 10px;">
+                    <p style="font-size: 14px; font-weight: 700;">✨ Obiettivo: Posizionarti come esperto</p>
+                </div>
+            </div>
+            
+            <!-- APRILE Settimana 4 -->
+            <div style="background: #fff; padding: 35px; border-radius: 30px; border: 4px solid #6DD5ED;">
+                <div style="background: #6DD5ED; padding: 10px 20px; border-radius: 50px; display: inline-block; margin-bottom: 20px;">
+                    <p style="font-size: 14px; font-weight: 800;">APRILE - Settimana 4</p>
+                </div>
+                <div style="font-size: 48px; margin: 20px 0;">💬</div>
+                <h3 style="font-size: 24px; font-weight: 800; margin-bottom: 15px;">Crea desiderio</h3>
+                <p style="font-size: 16px; font-style: italic; margin-bottom: 20px; line-height: 1.6;">
+                    "Le prime prove acconciatura per maggio sono già prenotate. Guardate che risultati..."
+                </p>
+                <div style="background: rgba(109,213,237,0.2); padding: 15px; border-radius: 10px;">
+                    <p style="font-size: 14px; font-weight: 700;">💬 Obiettivo: Mostrare che c'è richiesta</p>
+                </div>
+            </div>
+            
+            <!-- MAGGIO -->
+            <div style="background: #fff; padding: 35px; border-radius: 30px; border: 4px solid #51CF66;">
+                <div style="background: #51CF66; padding: 10px 20px; border-radius: 50px; display: inline-block; margin-bottom: 20px;">
+                    <p style="font-size: 14px; font-weight: 800;">MAGGIO 🎯</p>
+                </div>
+                <div style="font-size: 48px; margin: 20px 0;">🔥</div>
+                <h3 style="font-size: 24px; font-weight: 800; margin-bottom: 15px;">Raccogli</h3>
+                <p style="font-size: 16px; font-style: italic; margin-bottom: 20px; line-height: 1.6;">
+                    "Ultimi 3 posti disponibili per le cerimonie di maggio. Chi ha già prenotato sa perché."
+                </p>
+                <div style="background: rgba(81,207,102,0.2); padding: 15px; border-radius: 10px;">
+                    <p style="font-size: 14px; font-weight: 700;">✅ Risultato: Il cliente VUOLE venire da te</p>
+                </div>
+            </div>
+        </div>
+        
+        <!-- VEDI LA DIFFERENZA -->
+        <h3 style="font-size: 48px; font-weight: 900; margin: 80px 0 60px;">Vedi la differenza?</h3>
+        
+        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 40px; max-width: 1000px; margin: 0 auto;">
+            <div style="background: linear-gradient(135deg, #2D1B1B 0%, #4A1F1F 100%); padding: 40px; border-radius: 30px; color: #fff;">
+                <h4 style="font-size: 28px; margin-bottom: 20px;">✕ Senza strategia:</h4>
+                <p style="font-size: 22px; font-style: italic; margin-bottom: 15px;">"Prenota la tua piega per la cerimonia!"</p>
+                <p style="font-size: 16px; color: rgba(255,255,255,0.7);">→ Uno dei tanti. Perché proprio te?</p>
+            </div>
+            
+            <div style="background: linear-gradient(135deg, #1B4D3E 0%, #2D6A5A 100%); padding: 40px; border-radius: 30px; color: #fff;">
+                <h4 style="font-size: 28px; margin-bottom: 20px;">✓ Con Strategia Puzzle:</h4>
+                <p style="font-size: 22px; font-style: italic; margin-bottom: 15px;">"Ultimi posti disponibili"</p>
+                <p style="font-size: 16px; color: rgba(255,255,255,0.9);">→ Il cliente ti ha già scelto. Ora vuole solo assicurarsi il posto.</p>
+                <p style="font-size: 18px; font-weight: 700; margin-top: 20px; background: rgba(255,230,109,0.3); padding: 10px; border-radius: 10px; color: #000;">
+                    Non dici "venite da me".<br>Fai percepire che è un'occasione da non perdere.
+                </p>
+            </div>
+        </div>
+    </div>
+    
+    <!-- PERCHÉ È DIVERSO -->
+    <div class="section" style="background: linear-gradient(135deg, #f5f5f5 0%, #e8e8e8 100%);">
+        <div style="background: #FFF; padding: 40px 80px; border-radius: 30px; margin-bottom: 60px; box-shadow: 0 10px 40px rgba(0,0,0,0.1);">
+            <h2 style="font-size: 48px; font-weight: 900;">PERCHÉ È DIVERSO<br><span style="background: #FFE66D; padding: 5px 20px;">DA TUTTO IL RESTO</span></h2>
+        </div>
+        
+        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 60px; max-width: 1100px;">
+            <div style="text-align: left;">
+                <h3 style="font-size: 28px; font-weight: 800; margin-bottom: 30px; color: #999;">La maggior parte:</h3>
+                <ul style="list-style: none; font-size: 20px; line-height: 2.5;">
+                    <li style="text-decoration: line-through; color: #999;">ti riempie di contenuti</li>
+                    <li style="text-decoration: line-through; color: #999;">ti promette numeri</li>
+                    <li style="text-decoration: line-through; color: #999;">ti fa rincorrere trend</li>
+                </ul>
+            </div>
+            
+            <div style="background: #FFF; padding: 40px; border-radius: 30px; border: 4px solid #000; text-align: left;">
+                <h3 style="font-size: 28px; font-weight: 800; margin-bottom: 30px;">Io ti do:</h3>
+                <div style="margin: 15px 0;">
+                    <span style="background: #FFB3D9; padding: 8px 20px; font-size: 20px; font-weight: 700; border-radius: 10px;">una direzione chiara</span>
+                </div>
+                <div style="margin: 15px 0;">
+                    <span style="background: #FFE66D; padding: 8px 20px; font-size: 20px; font-weight: 700; border-radius: 10px;">criteri per decidere</span>
+                </div>
+                <div style="margin: 15px 0;">
+                    <span style="background: #6DD5ED; padding: 8px 20px; font-size: 20px; font-weight: 700; border-radius: 10px;">un sistema che funziona</span>
+                </div>
+            </div>
+        </div>
+        
+        <div style="background: #000; color: #fff; padding: 50px; border-radius: 30px; max-width: 900px; margin: 80px auto 0;">
+            <p style="font-size: 26px; line-height: 1.6;">
+                Non lavoro sull'algoritmo.<br>
+                <span style="background: #FFE66D; color: #000; padding: 5px 15px; border-radius: 5px;">Lavoro sulla tua strategia.</span>
+            </p>
+            <p style="font-size: 22px; margin-top: 30px; color: rgba(255,255,255,0.8);">
+                Perché senza strategia,<br>ogni contenuto è solo rumore.
+            </p>
+        </div>
+    </div>
+    
+    <!-- COME LAVORO -->
+    <div class="section" style="background: linear-gradient(135deg, #FFF9E6 0%, #FFE6F0 100%);">
+        <div style="background: #FFB3D9; padding: 30px 60px; border-radius: 30px; margin-bottom: 40px;">
+            <h2 style="font-size: 48px; font-weight: 900;">COME LAVORO</h2>
+        </div>
+        
+        <p style="font-size: 24px; font-weight: 800; margin-bottom: 20px;">Non si parte dai contenuti.</p>
+        <div style="background: #FFE66D; padding: 20px 40px; border-radius: 20px; display: inline-block; margin-bottom: 60px;">
+            <p style="font-size: 28px; font-weight: 900;">Si parte da una DIAGNOSI</p>
+        </div>
+        
+        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 50px; max-width: 1100px; margin-bottom: 60px;">
+            <div style="background: #FFF; padding: 45px; border-radius: 30px; border: 4px solid #FFB3D9;">
+                <div style="background: #FFB3D9; padding: 15px 30px; border-radius: 15px; display: inline-block; margin-bottom: 30px;">
+                    <h3 style="font-size: 24px; font-weight: 900;">GUARDO:</h3>
+                </div>
+                <ul style="list-style: none; font-size: 18px; line-height: 2;">
+                    <li>👀 cosa comunichi</li>
+                    <li>🎯 a chi stai parlando davvero</li>
+                    <li>🗺 dove stai portando le persone</li>
+                    <li>💬 cosa stai promettendo (anche senza dirlo)</li>
+                </ul>
+            </div>
+            
+            <div style="background: #FFF; padding: 45px; border-radius: 30px; border: 4px solid #FFE66D;">
+                <div style="background: #FFE66D; padding: 15px 30px; border-radius: 15px; display: inline-block; margin-bottom: 30px;">
+                    <h3 style="font-size: 24px; font-weight: 900;">E INDIVIDUO:</h3>
+                </div>
+                <ul style="list-style: none; font-size: 18px; line-height: 2;">
+                    <li>🧩 pezzi mancanti</li>
+                    <li>🔀 pezzi fuori posto</li>
+                    <li>✂️ messaggi da tagliare</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <!-- PER CHI È -->
+    <div class="section" style="background: linear-gradient(135deg, #ffe6f0 0%, #fff9e6 100%);">
+        <div class="circle" style="width: 100px; height: 100px; background: #FFB3D9; top: 80px; left: 60px;"></div>
+        
+        <div style="background: #000; color: #fff; padding: 25px 50px; border-radius: 20px; margin-bottom: 40px;">
+            <p style="font-size: 28px; font-weight: 900;">👉 Prima <span style="background: #FFE66D; color: #000; padding: 5px 15px;">chiarezza</span></p>
+        </div>
+        
+        <div style="background: #000; color: #fff; padding: 25px 50px; border-radius: 20px; margin-bottom: 40px;">
+            <p style="font-size: 28px; font-weight: 900;">👉 Poi <span style="background: #FFB3D9; color: #000; padding: 5px 15px;">scelte</span></p>
+        </div>
+        
+        <div style="background: #000; color: #fff; padding: 25px 50px; border-radius: 20px; margin-bottom: 80px;">
+            <p style="font-size: 28px; font-weight: 900;">👉 Solo dopo, <span style="background: #6DD5ED; color: #000; padding: 5px 15px;">i contenuti</span></p>
+        </div>
+        
+        <h2 class="section-title">PER CHI È<br><span style="font-size: 36px; font-weight: 700;">(e per chi no)</span></h2>
+        
+        <div class="compare-grid" style="margin-top: 60px;">
+            <div class="compare-box compare-green">
+                <div class="compare-icon">✓</div>
+                <h3 class="compare-title">È per te se:</h3>
+                <ul class="compare-list">
+                    <li>vuoi <span style="background: #ccffcc; padding: 3px 8px;">richieste più giuste</span> , non più like</li>
+                    <li>preferisci <span style="background: #ccffcc; padding: 3px 8px;">capire</span> piuttosto che rincorrere trend</li>
+                    <li>sei disposto a fare <span style="background: #ccffcc; padding: 3px 8px;">scelte (anche scomode)</span></li>
+                </ul>
+            </div>
+            
+            <div class="compare-box compare-red">
+                <div class="compare-icon">✕</div>
+                <h3 class="compare-title">Non è per te se:</h3>
+                <ul class="compare-list">
+                    <li>cerchi <span style="background: #ffcccc; padding: 3px 8px;">formule magiche</span></li>
+                    <li>vuoi <span style="background: #ffcccc; padding: 3px 8px;">copiare</span> ciò che fanno tutti</li>
+                    <li>misuri tutto solo in <span style="background: #ffcccc; padding: 3px 8px;">visualizzazioni</span></li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <!-- CTA FINALE -->
+    <div class="section" id="contatti" style="background: linear-gradient(135deg, #ffe6f0 0%, #fff9e6 100%);">
+        <div class="circle" style="width: 150px; height: 150px; background: #FFB3D9; top: 100px; left: 80px;"></div>
+        <div class="circle" style="width: 130px; height: 130px; background: #FFE66D; bottom: 150px; right: 100px;"></div>
+        
+        <p style="font-size: 32px; font-weight: 800; margin-bottom: 30px; max-width: 800px; text-align: center;">Se senti che la tua comunicazione<br>ha bisogno di <span style="background: #FFE66D; padding: 5px 20px;">ORDINE</span> ,<br>non di <span style="text-decoration: line-through; color: #999;">volume</span>:</p>
+        
+        <a href="mailto:maria_antonietta@mycreativeplanet.it?subject=PUZZLE" class="cta-button" style="margin: 30px 0;">👉 SCRIVIMI "PUZZLE"</a>
+        
+        <div style="background: #fff; padding: 50px; border-radius: 30px; max-width: 800px; margin: 40px auto; box-shadow: 0 10px 40px rgba(0,0,0,0.1);">
+            <p style="font-size: 20px; margin-bottom: 20px;">Ti mando una <span class="yellow-highlight">checklist secca</span><br>per capire subito <span class="pink-highlight">cosa tagliare</span><br>e se ha senso andare avanti.</p>
+            
+            <p style="font-size: 22px; font-weight: 800; margin-top: 40px;">Niente call forzate.<br>Niente promesse.</p>
+        </div>
+        
+        <div style="background: #000; color: #fff; padding: 30px 60px; border-radius: 20px; display: inline-block; margin-top: 30px;">
+            <p style="font-size: 28px; font-weight: 900;">Solo CHIAREZZA.</p>
+        </div>
+    </div>
+
+    <footer style="padding: 40px; text-align: center; background: #000; color: #fff;">
+        <p style="font-size: 14px;">© 2025 Strategia Puzzle. 
